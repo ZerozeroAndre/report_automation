@@ -79,8 +79,8 @@ def description_extraction(subdf, len_containers):
 
 
 def excel_extractor(manifest_name):
-
-    df = pd.read_excel("7065 MAERSK KAMPALA.xls")
+    print(manifest_name)
+    df = pd.read_excel(manifest_name)
 
     list_of_check = list(
         map(
@@ -140,7 +140,7 @@ def excel_extractor(manifest_name):
 
         vessel_name_index = vessel_word_index + count_of_vessel
         vessel_name_buf = sentence[vessel_name_index:]
-        # print(vessel_name_buf)
+        print(vessel_name_buf)
 
         # bill of lading loop of sub_frame
         list_of_indexes_bill_numbers = vessel_sub_frame[
@@ -163,9 +163,9 @@ def excel_extractor(manifest_name):
             bill_sub_frame = df.iloc[k:nextelem_2]
 
             # extract bill
-            # print(
-            #     "Bill of Lading Number: ", df.iloc[k]["Unnamed: 0"]
-            # )  # save data to csv
+            print(
+                "Bill of Lading Number: ", df.iloc[k]["Unnamed: 0"]
+            )  # save data to csv
 
             # container loops of subframe
 
@@ -192,12 +192,12 @@ def excel_extractor(manifest_name):
             for t in sub_containers_indexes_list.values:
 
                 type_buf = df.iloc[sub_container_indexes[container_counter]][5]
-                #    print(
-                #       "Container number: ",
-                #      t,
-                #      " Type of Container: ",
-                #      df.iloc[sub_container_indexes[container_counter]][5],
-                #  )
+                print(
+                    "Container number: ",
+                    t,
+                    " Type of Container: ",
+                    df.iloc[sub_container_indexes[container_counter]][5],
+                )
 
                 # print(df.iloc[sub_container_indexes[container_counter]])
                 # if len(sub_frame_of_bill_numbers["Unnamed: 0"] > 1:
@@ -229,6 +229,8 @@ def excel_extractor(manifest_name):
 
     # save result
     bar.finish()
-    output_filename = "output_1.xlsx"
+    print(manifest_name[12:])
+    output_name = "./result/" + manifest_name[12:]
+    output_filename = output_name + "_output.xlsx"
     df_result.to_excel(output_filename)
     print("Файл Сохранен -", output_filename)
